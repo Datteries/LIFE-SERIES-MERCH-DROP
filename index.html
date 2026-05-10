@@ -1,251 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Windows 95 Desktop (Stable Build)</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Life Series Merch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#008080;
-  --win:#c0c0c0;
-  --dark:#000;
-  --light:#fff;
-  --title:#000080;
+  --bg:#090909;
+  --panel:#121212;
+  --panel2:#1b1b1b;
+  --green:#44ff88;
+  --yellow:#ffd84d;
+  --red:#ff4d4d;
+  --white:#ffffff;
+  --grey:#9a9a9a;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  background:var(--bg);
-  font-family:"MS Sans Serif", Tahoma, sans-serif;
-  overflow:hidden;
-  user-select:none;
-}
-
-.desktop-icon{
-  position:absolute;
-  width:80px;
-  text-align:center;
+  background:radial-gradient(circle at top, #1c1c1c 0%, #090909 70%);
   color:white;
-  font-size:12px;
-  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
 }
 
-.window{
-  position:absolute;
-  width:420px;
-  background:var(--win);
-  border:2px solid var(--light);
-  box-shadow: inset -2px -2px var(--dark), inset 2px 2px var(--light);
-  display:none;
-  z-index:10;
-}
-
-.title-bar{
-  background:var(--title);
-  color:white;
-  padding:3px;
-  font-size:13px;
-  display:flex;
-  justify-content:space-between;
-  cursor:grab;
-}
-
-.close-btn{
-  width:18px;
-  height:18px;
-  background:var(--win);
-  border:1px solid var(--light);
-  box-shadow: inset -2px -2px var(--dark), inset 2px 2px var(--light);
-  text-align:center;
-  line-height:14px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.content{ padding:10px; font-size:13px; }
-
-button, input, textarea{
-  background:var(--win);
-  border:2px solid var(--light);
-  box-shadow: inset -2px -2px var(--dark), inset 2px 2px var(--light);
-  font-family:inherit;
-}
-
-.taskbar{
+body::before{
+  content:"";
   position:fixed;
-  bottom:0;
-  width:100%;
-  height:32px;
-  background:var(--win);
+  inset:0;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events:none;
+  mix-blend-mode:soft-light;
+}
+
+header{
+  min-height:100vh;
   display:flex;
   align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.start-btn{
-  margin-left:4px;
-  padding:3px 10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.start-menu{
+.hero-bg{
   position:absolute;
-  bottom:34px;
-  left:4px;
-  width:200px;
-  background:var(--win);
-  border:2px solid var(--light);
-  display:none;
-  z-index:100;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(68,255,136,0.15), transparent 30%),
+    radial-gradient(circle at 80% 50%, rgba(255,77,77,0.18), transparent 35%),
+    radial-gradient(circle at 50% 90%, rgba(255,216,77,0.12), transparent 30%);
+  filter:blur(30px);
+  animation:moveBg 8s infinite alternate ease-in-out;
 }
 
-.start-item{ padding:6px; cursor:pointer; }
-.start-item:hover{ background:var(--title); color:white; }
+@keyframes moveBg{
+  from{transform:translateY(-10px) scale(1)}
+  to{transform:translateY(10px) scale(1.05)}
+}
 
-canvas{ background:white; border:1px solid black; cursor:crosshair; }
+.hero{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  width:90%;
+  max-width:1000px;
+}
 
-textarea{ width:100%; height:180px; resize:none; }
+.logo{
+  font-family:'Press Start 2P',cursive;
+  font-size:clamp(2rem,5vw,5rem);
+  line-height:1.4;
+  text-shadow:
+    0 0 10px var(--green),
+    0 0 30px var(--green);
+}
 
-iframe{
+.subtitle{
+  margin-top:30px;
+  color:#d4d4d4;
+  font-size:1.1rem;
+  line-height:1.7;
+}
+
+.buttons{
+  margin-top:40px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  padding:16px 30px;
+  font-size:1rem;
+  border-radius:14px;
+  transition:0.2s;
+  font-weight:700;
+}
+
+.primary{
+  background:var(--green);
+  color:black;
+  box-shadow:0 0 20px rgba(68,255,136,0.4);
+}
+
+.secondary{
+  background:#222;
+  color:white;
+  border:1px solid #333;
+}
+
+button:hover{
+  transform:translateY(-4px) scale(1.03);
+}
+
+section{
+  padding:90px 8%;
+}
+
+.section-title{
+  font-size:3rem;
+  margin-bottom:50px;
+  font-weight:900;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+}
+
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid #2f2f2f;
+  border-radius:24px;
+  overflow:hidden;
+  transition:0.25s;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:var(--green);
+  box-shadow:0 0 30px rgba(68,255,136,0.18);
+}
+
+.image{
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:6rem;
+  background:
+  linear-gradient(135deg,#1c1c1c,#101010);
+}
+
+.card-content{
+  padding:24px;
+}
+
+.item-name{
+  font-size:1.4rem;
+  font-weight:800;
+}
+
+.price{
+  margin-top:12px;
+  font-size:1.1rem;
+  color:var(--green);
+  font-weight:700;
+}
+
+.desc{
+  margin-top:14px;
+  color:#bdbdbd;
+  line-height:1.6;
+}
+
+.tag{
+  position:absolute;
+  top:16px;
+  right:16px;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:0.8rem;
+  font-weight:800;
+}
+
+.green{background:var(--green);color:black;}
+.yellow{background:var(--yellow);color:black;}
+.red{background:var(--red);}
+
+.buy{
+  margin-top:20px;
   width:100%;
-  height:180px;
-  background:white;
-  border:1px solid #000;
+  background:#202020;
+  color:white;
+}
+
+.buy:hover{
+  background:var(--green);
+  color:black;
+}
+
+.countdown{
+  text-align:center;
+  background:#111;
+  border-top:1px solid #242424;
+  border-bottom:1px solid #242424;
+}
+
+.timer{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:35px;
+  flex-wrap:wrap;
+}
+
+.time-box{
+  background:#181818;
+  padding:24px;
+  border-radius:20px;
+  min-width:120px;
+  border:1px solid #2a2a2a;
+}
+
+.number{
+  font-size:3rem;
+  font-weight:900;
+}
+
+.label{
+  margin-top:8px;
+  color:#a3a3a3;
+}
+
+footer{
+  padding:50px 8%;
+  text-align:center;
+  color:#8a8a8a;
+  border-top:1px solid #1f1f1f;
+}
+
+.crt{
+  animation:flicker 0.15s infinite;
+}
+
+@keyframes flicker{
+  0%{opacity:1}
+  50%{opacity:0.98}
+  100%{opacity:1}
+}
+
+@media(max-width:700px){
+  .section-title{
+    font-size:2rem;
+  }
+
+  .logo{
+    font-size:2rem;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- Icons -->
-<div class="desktop-icon" style="top:20px;left:20px;" onclick="openWindow('computer')">💻<br>Computer</div>
-<div class="desktop-icon" style="top:110px;left:20px;" onclick="openWindow('notepad')">📝<br>Notepad</div>
-<div class="desktop-icon" style="top:200px;left:20px;" onclick="openWindow('paint')">🎨<br>Paint</div>
-<div class="desktop-icon" style="top:290px;left:20px;" onclick="openWindow('browser')">🌐<br>Browser</div>
+<header>
+  <div class="hero-bg"></div>
 
-<!-- Computer -->
-<div id="computer" class="window" style="top:80px;left:150px;">
-  <div class="title-bar">My Computer <div class="close-btn" onclick="closeWindow('computer')">X</div></div>
-  <div class="content">
-    <p>C:\ Drive</p>
-    <p>A:\ Floppy</p>
-    <p>Network</p>
+  <div class="hero crt">
+    <div class="logo">LIFE SERIES<br>MERCH DROP</div>
+
+    <div class="subtitle">
+      Limited merch from the newest season.<br>
+      Last life. Final warnings. Survivor gear.
+    </div>
+
+    <div class="buttons">
+      <button class="primary">SHOP NOW</button>
+      <button class="secondary">VIEW COLLECTION</button>
+    </div>
   </div>
-</div>
+</header>
 
-<!-- Notepad -->
-<div id="notepad" class="window" style="top:120px;left:220px;">
-  <div class="title-bar">Notepad <div class="close-btn" onclick="closeWindow('notepad')">X</div></div>
-  <div class="content">
-    <textarea id="note"></textarea>
-    <button onclick="saveNote()">Save</button>
+<section class="countdown">
+  <h2 class="section-title">NEXT DROP</h2>
+
+  <div class="timer">
+    <div class="time-box">
+      <div class="number" id="days">00</div>
+      <div class="label">DAYS</div>
+    </div>
+
+    <div class="time-box">
+      <div class="number" id="hours">00</div>
+      <div class="label">HOURS</div>
+    </div>
+
+    <div class="time-box">
+      <div class="number" id="minutes">00</div>
+      <div class="label">MINUTES</div>
+    </div>
+
+    <div class="time-box">
+      <div class="number" id="seconds">00</div>
+      <div class="label">SECONDS</div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- Paint -->
-<div id="paint" class="window" style="top:160px;left:260px;">
-  <div class="title-bar">Paint <div class="close-btn" onclick="closeWindow('paint')">X</div></div>
-  <div class="content">
-    <input type="color" id="color" value="#000000">
-    <input type="range" id="size" min="1" max="20" value="3">
-    <button onclick="clearCanvas()">Clear</button>
-    <canvas id="canvas" width="360" height="220"></canvas>
+<section>
+  <h2 class="section-title">FEATURED MERCH</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="tag green">6 LIVES</div>
+      <div class="image">🟢</div>
+
+      <div class="card-content">
+        <div class="item-name">Survivor Hoodie</div>
+        <div class="price">£49.99</div>
+
+        <div class="desc">
+          Heavy oversized hoodie inspired by the Life Series survival system.
+        </div>
+
+        <button class="buy">ADD TO CART</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag yellow">2 LIVES</div>
+      <div class="image">🟡</div>
+
+      <div class="card-content">
+        <div class="item-name">Yellow Life Tee</div>
+        <div class="price">£24.99</div>
+
+        <div class="desc">
+          Warning status activated. Clean soft cotton with retro print.
+        </div>
+
+        <button class="buy">ADD TO CART</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag red">LAST LIFE</div>
+      <div class="image">🔴</div>
+
+      <div class="card-content">
+        <div class="item-name">Red Life Poster</div>
+        <div class="price">£14.99</div>
+
+        <div class="desc">
+          High-detail poster with CRT styled graphics and glitch textures.
+        </div>
+
+        <button class="buy">ADD TO CART</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag green">LIMITED</div>
+      <div class="image">💿</div>
+
+      <div class="card-content">
+        <div class="item-name">Collector Pin Set</div>
+        <div class="price">£19.99</div>
+
+        <div class="desc">
+          Rare enamel pin set with all life stages included.
+        </div>
+
+        <button class="buy">ADD TO CART</button>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
-<!-- Browser FIXED -->
-<div id="browser" class="window" style="top:100px;left:300px;">
-  <div class="title-bar">Browser <div class="close-btn" onclick="closeWindow('browser')">X</div></div>
-  <div class="content">
-    <input id="url" placeholder="example.com">
-    <button onclick="loadPage()">Go</button>
-    <iframe id="pageFrame"></iframe>
-  </div>
-</div>
-
-<!-- Start Menu -->
-<div id="startMenu" class="start-menu">
-  <div class="start-item" onclick="openWindow('computer')">Computer</div>
-  <div class="start-item" onclick="openWindow('notepad')">Notepad</div>
-  <div class="start-item" onclick="openWindow('paint')">Paint</div>
-  <div class="start-item" onclick="openWindow('browser')">Browser</div>
-</div>
-
-<div class="taskbar">
-  <div class="start-btn" onclick="toggleStart()">Start</div>
-</div>
+<footer>
+  LIFE SERIES EVENT © 2026 • MADE FOR THE SURVIVORS
+</footer>
 
 <script>
-let drag=null,ox=0,oy=0,z=10;
+const targetDate = new Date();
+targetDate.setDate(targetDate.getDate() + 12);
 
-function openWindow(id){
-  const w=document.getElementById(id);
-  w.style.display='block';
-  w.style.zIndex=++z;
-  closeStart();
+function updateCountdown(){
+  const now = new Date();
+  const diff = targetDate - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / 1000 / 60) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('days').textContent = String(days).padStart(2,'0');
+  document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
 }
 
-function closeWindow(id){
-  document.getElementById(id).style.display='none';
-}
-
-function toggleStart(){
-  const m=document.getElementById('startMenu');
-  m.style.display = (m.style.display==='block') ? 'none' : 'block';
-}
-
-function closeStart(){
-  document.getElementById('startMenu').style.display='none';
-}
-
-// Notepad
-function saveNote(){
-  localStorage.setItem('note',document.getElementById('note').value);
-}
-
-document.getElementById('note').value = localStorage.getItem('note') || "";
-
-// Browser FIX
-function loadPage(){
-  let url=document.getElementById('url').value.trim();
-  if(!url) return;
-  if(!url.startsWith('http')) url='https://'+url;
-  document.getElementById('pageFrame').src=url;
-}
-
-// Paint
-const canvas=document.getElementById('canvas');
-const ctx=canvas.getContext('2d');
-let draw=false;
-
-canvas.addEventListener('mousedown',()=>draw=true);
-canvas.addEventListener('mouseup',()=>draw=false);
-canvas.addEventListener('mousemove',e=>{
-  if(!draw)return;
-  const r=canvas.getBoundingClientRect();
-  ctx.fillStyle=document.getElementById('color').value;
-  const s=document.getElementById('size').value;
-  ctx.beginPath();
-  ctx.arc(e.clientX-r.left,e.clientY-r.top,s,0,Math.PI*2);
-  ctx.fill();
-});
-
-function clearCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);}
-
-// Drag
-window.addEventListener('mousedown',e=>{
-  const bar=e.target.closest('.title-bar'); if(!bar)return;
-  drag=bar.parentElement;
-  ox=e.clientX-drag.offsetLeft;
-  oy=e.clientY-drag.offsetTop;
-  drag.style.zIndex=++z;
-});
-window.addEventListener('mousemove',e=>{
-  if(!drag)return;
-  drag.style.left=(e.clientX-ox)+'px';
-  drag.style.top=(e.clientY-oy)+'px';
-});
-window.addEventListener('mouseup',()=>drag=null);
+setInterval(updateCountdown,1000);
+updateCountdown();
 </script>
 
 </body>
